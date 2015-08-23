@@ -104,15 +104,14 @@ start() {
 }
 
 stop() {
-    kill $(cat /var/run/docker.pid)
+    if check; then
+        kill $(cat /var/run/docker.pid)
+        sleep 1
+    fi
 }
 
 restart() {
-    if check; then
-        stop && sleep 1 && start
-    else
-        start
-    fi
+    stop && start
 }
 
 check() {
